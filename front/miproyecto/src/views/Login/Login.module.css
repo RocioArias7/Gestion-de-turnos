@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.formContainer{
+    width: 100%;
+    max-width: 420px;
+    margin: auto;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    z-index: 1;
+}
+
+.formTitle {
+   font-size: 22px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 25px;
+}
+
+.formGroup {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.formLabel {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.formInput {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: border 0.2s ease;
+}
+
+.formInput:focus {
+    border-color: #2563eb;
+    outline: none;
+}
+
+.errorLabel {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.formButton {
+    width: 100%;
+    padding: 14px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.formButton:disabled {
+    background-color: #042aff;
+    cursor: not-allowed;
+
+}
+
+.formButton:hover:not(:disabled) {
+    background-color: #1d4ed8;
+}

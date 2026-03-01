@@ -1,0 +1,43 @@
+.appointmentCard {
+    background-color : #f0f0f0;
+    border: 8px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 10px;
+    width: 300px;
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+}
+
+
+.appointmentCard
+:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.appointmentHeader  {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+
+.appointmentDetails {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.appointmentDetails p {
+    margin: 0px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.appointmentDetails strong {
+    font-weight: bold;
+    color: #555;
+}
