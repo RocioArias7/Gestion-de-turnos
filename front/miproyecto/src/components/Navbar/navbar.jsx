@@ -1,9 +1,22 @@
-import { Link } from "react-router-dom";    
+import { Link, useNavigate } from "react-router-dom";    
 import Styles from "./Navbar.module.css";
+import Swal from "sweetalert2";
 
 
 
-function Navbar() {
+function Navbar({setIslogged}) {
+
+    const navigate = useNavigate()
+
+    const handleLogOut = () => {
+        localStorage.removeItem("user")
+        navigate('/login')
+        setIslogged(false)
+        Swal.fire({
+            icon: 'warning',
+            title: "LogOut exitoso!",
+        })
+    }
     return (
         
              <div className={Styles.navbarContainer}>
@@ -24,8 +37,8 @@ function Navbar() {
                     Mis turnos
                     </Link>
                 </li>
-                <li className={Styles.navLink}>
-                    Logout
+                <li className={Styles.navLink} onClick={handleLogOut}>
+                    LogOut
                 </li>
                 </nav>
         </div>

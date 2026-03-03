@@ -3,6 +3,7 @@ import { registerFormValidates } from '../../helpers/validates';
 import styles from './Register.module.css';
 import { useFormik } from 'formik';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 
 function Register() {

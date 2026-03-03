@@ -3,9 +3,12 @@ import styles from "./Login.module.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { loginFormValidates } from "../../helpers/validates";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-function Login(setIslogged) {
+
+
+function Login({setIslogged}) {
+    const navigate = useNavigate()
     const formik = useFormik({
         initialValues: {
             username: "",
@@ -18,13 +21,15 @@ function Login(setIslogged) {
         validate: loginFormValidates,
         onSubmit: (values) => {
             axios.post("http://localhost:3000/users/login", values)
-                .then(() => {
+                .then((response) => {
                     Swal.fire({
                         icon: 'success',
                         title: "Login exitoso",
 
                     })
                     setIslogged(true)
+                    navigate('/')
+                    localStorage.setItem('user', JSON.stringify(response.data.user))
                 })
                 .catch((error) => {
                     Swal.fire({
@@ -36,6 +41,7 @@ function Login(setIslogged) {
     })
 
     return (
+        
         <form className={styles.formContainer} onSubmit={formik.handleSubmit}>
             <h2 className={styles.formTitle}> Formulario de Login</h2>
 
@@ -87,7 +93,7 @@ function Login(setIslogged) {
              </button>
              <br />
              <label>
-                Aun no tienes una cuenta? <Link to="/Register"> Registrate </Link>
+                Aun no tienes una cuenta? <Link to="/register"> Registrate </Link>
              </label>
         </form>
     )
