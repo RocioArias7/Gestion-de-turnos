@@ -3,27 +3,31 @@ import Home from "./views/Home/Home"
 import Misturnos from "./views/Misturnos/Misturnos"
 import Register from "./views/Register/Register"
 import Login from "./views/Login/Login"
+import AgendarTurno from "./components/AgendarTurno/AgendarTurno";
 import Navbar from "./components/Navbar/navbar"
 import Styles from './App.module.css'
-import { useEffect, useState } from "react"
+import { useContext, useEffect } from "react"
 import Notfound from "./components/NotFound/NotFound"
 import fondoClinica from "./assets/clinica.jpg"
+import { UsersContext } from "./context/UsersContext"
+
 
 
 
 
 function App() {
+ 
   const location = useLocation()
+  const { isLogged } = useContext(UsersContext)
 
-  const [islogged, setIslogged] = useState(localStorage.getItem('user'))
-
+  
 
   const navigate = useNavigate()
   useEffect(() => {
-    if(!islogged && location.pathname !== '/login' && location.pathname !== '/register') {
+    if(!isLogged && location.pathname !== '/login' && location.pathname !== '/register') {
       navigate('/login')
     }
-  }, [islogged])
+  }, [isLogged, navigate, location.pathname])
 
 
 
@@ -31,60 +35,40 @@ function App() {
   return (
     <> 
     {
-      !islogged ? 
+      !isLogged ? 
           <main className={Styles.main}
-            style={{
-            backgroundImage: `url(${fondoClinica})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            minHeight: "100vh",
-            position: "relative",
-          }}
-          >
-           <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                backgroundColor: "rgba(255, 255, 255, 0.65)",
-                zIndex: 0
-              }}
+            style={{ backgroundImage: `url(${fondoClinica})` }}
+            >
+           <div className= {Styles.overlay}
+              
             />
-            <div style={{ position: "relative", zIndex: 1 }}>
+            <div className={Styles.content}>
             <Routes>
-              <Route path="/login" element={<Login setIslogged={setIslogged} />} />
+              <Route path="/login" element={<Login  />} />
               <Route path="/register" element={<Register />} />
+              <Route path="*" element={<Login />} />
             </Routes>
             </div>
-            </main>
+          </main>
 
       :
       <>
       <header className={Styles.header}>
         <h1 className={Styles.logoText}> Clinica <span className={Styles.logoAccent}>Arias</span></h1>
-        <Navbar setIslogged={setIslogged}/>
+        <Navbar />
       </header>
       <main
-      style={{
-            backgroundImage: `url(${fondoClinica})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            minHeight: "100vh",
-            position: "relative",
-          }}>
-            <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  backgroundColor: "rgba(255, 255, 255, 0.65)",
-                  zIndex: 0
-                }}
-              />
-              <div style={{ position: "relative", zIndex: 1 }}>
+        className={Styles.main}
+        style={{ backgroundImage: `url(${fondoClinica})` }}
+          >
+        <div className={Styles.overlay} />
 
-
+        <div className={Styles.content}>
+      
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/misturnos" element={<Misturnos />} />
+          <Route path="/agendarturno" element={<AgendarTurno />} />
           <Route path="*" element={<Notfound />} />
           </Routes>
           </div>

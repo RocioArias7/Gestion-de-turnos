@@ -1,17 +1,20 @@
 import { Link, useNavigate } from "react-router-dom";    
 import Styles from "./Navbar.module.css";
 import Swal from "sweetalert2";
+import { useContext } from "react";
+import { UsersContext } from "../../context/UsersContext";
 
 
 
-function Navbar({setIslogged}) {
+function Navbar() {
 
     const navigate = useNavigate()
 
+    const { logOutUser } = useContext(UsersContext)
+
     const handleLogOut = () => {
-        localStorage.removeItem("user")
+        logOutUser()
         navigate('/login')
-        setIslogged(false)
         Swal.fire({
             icon: 'warning',
             title: "LogOut exitoso!",
@@ -29,6 +32,18 @@ function Navbar({setIslogged}) {
                     Home
                     </Link>
                 </li>
+                <li className={Styles.navItem}>
+                    <Link
+                    to="/agendarturno"
+                    className={`${Styles.navLink} ${location.pathname === '/agendarturno' ? Styles.active : ''}`}
+                    >
+                    Agendar Turno
+                    </Link>
+                </li>
+
+
+
+
                 <li className={Styles.navItem}>
                     <Link
                     to="/misturnos"

@@ -1,13 +1,18 @@
 import { useFormik } from "formik";
 import styles from "./Login.module.css";
-import axios from "axios";
 import Swal from "sweetalert2";
 import { loginFormValidates } from "../../helpers/validates";
 import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UsersContext } from "../../context/UsersContext";
 
 
 
-function Login({setIslogged}) {
+
+function Login() {
+
+    const { loginUser } = useContext(UsersContext)
+
     const navigate = useNavigate()
     const formik = useFormik({
         initialValues: {
@@ -20,16 +25,13 @@ function Login({setIslogged}) {
         },
         validate: loginFormValidates,
         onSubmit: (values) => {
-            axios.post("http://localhost:3000/users/login", values)
-                .then((response) => {
+            loginUser(values)
+                .then(() => {
                     Swal.fire({
-                        icon: 'success',
-                        title: "Login exitoso",
-
+                        icon: "success",
+                        title: "Login exitoso"
                     })
-                    setIslogged(true)
-                    navigate('/')
-                    localStorage.setItem('user', JSON.stringify(response.data.user))
+                    navigate("/")
                 })
                 .catch((error) => {
                     Swal.fire({

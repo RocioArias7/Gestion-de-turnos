@@ -1,48 +1,57 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect } from "react"
 import Appointment from "../../components/Turno/Appointment"
 import Styles from "./Misturnos.module.css"
-import axios from "axios"
+import { UsersContext } from "../../context/UsersContext"
+import Swal from "sweetalert2"
+
 
 
 function Misturnos(){
-    const [myApp, setMyApp] =  useState([])
+
+    const {getUserAppointments, myApp} = useContext(UsersContext)
     
     useEffect(() => {
-        axios.get ("http://localhost:3000/appointments")
-        .then((info) => {
-            setTimeout(( ) => {
-             setMyApp(info.data.data)
-            }, 4000)
+        getUserAppointments()
+            .then(() => {
+                Swal.fire({
+                    icon: "success",
+                    title: "Turnos cargados correctamente"
+                });
+            })
+            .catch(() => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error al cargar los turnos"
+                });
+        })
 
-    })
-        .catch(err => console.log(err))
-
-
-    }, [])
+        
+     
+    }, []);
 
 
     return (
-    <div className={Styles.contenedor}>
-        <div className={Styles.contenedorH1}>
-        <h1> Mis Turnos </h1>
-        </div>
+        <div className={Styles.contenedor}>
+            <div className={Styles.contenedorH1}>
+                <h1> Mis Turnos </h1>
+            </div>
 
-        <div className={Styles.containerTurns}>
-        {myApp.length > 0 ? (
-            myApp.map(turno => (
-            <Appointment
-                key={turno.id}
-                id={turno.id}
-                date={turno.date}
-                time={turno.time}
-                status={turno.status}
+            <div className={Styles.containerTurns}>
+                {myApp.length > 0 ? (
+                    myApp.map(turno => (
+                    <Appointment
+                    key={turno.id}
+                    id={turno.id}
+                    date={turno.date}
+                    time={turno.time}
+                    status={turno.status}
             />
             ))
         ) : (
-            <p>Cargando...</p>
+            <h1>No hay turnos para mostrar</h1>
         )}
         </div>
-    </div>
+        </div>
     )
 }
 
